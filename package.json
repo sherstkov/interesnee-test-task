@@ -8,12 +8,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@firebase/app": "^0.7.24",
+    "@firebase/firestore": "^3.4.9",
+    "@reduxjs/toolkit": "^1.8.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-redux": "^8.0.1",
-    "vite-tsconfig-paths": "^3.4.1"
+    "react-redux": "^8.0.1"
   },
   "devDependencies": {
+    "@types/node": "^17.0.35",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
