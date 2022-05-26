@@ -17,7 +17,7 @@ export const apiSlice = createApi({
   baseQuery: fakeBaseQuery(),
   tagTypes: ['Books'],
   endpoints: (builder) => ({
-    getBooks: builder.query<Books | object, null>({
+    getBooks: builder.query<Books | object, void>({
       queryFn: async () => {
         try {
           const ref = collectionGroup(firestore, 'books');

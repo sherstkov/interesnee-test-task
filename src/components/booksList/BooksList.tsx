@@ -3,12 +3,7 @@ import { Loader } from '../index';
 import { Books, Book } from '../../customTypes/Books';
 
 function BooksList() {
-  const { data: books = [], isLoading, isError } = useGetBooksQuery(null);
-  let lol = true;
-  {
-    lol = false;
-  }
-  console.log(lol);
+  const { data: books = [], isLoading, isError } = useGetBooksQuery();
 
   if (isLoading) {
     return <Loader />;
@@ -22,7 +17,6 @@ function BooksList() {
     if (booksList.length === 0) {
       return <h2>Books has not yet been added</h2>;
     }
-    console.log(booksList);
     return booksList.map((book: Book) => (
       <div key={book.id} style={{ backgroundColor: 'gray' }}>
         <h3>{book.name}</h3>

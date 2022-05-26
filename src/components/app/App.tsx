@@ -1,7 +1,12 @@
-import { BooksList } from '../index';
+import { BooksList, BookAddForm } from '../index';
 
 function App() {
-  return <BooksList />;
+  return (
+    <>
+      <BookAddForm />
+      <BooksList />
+    </>
+  );
 }
 
 export default App;
