@@ -13,12 +13,15 @@ function InputAuthors() {
         {...register('authors', {
           required: true,
           validate: {
-            passRegex: (v: string) => passRegexAuthors(v),
+            passRegex: (v: Array<string>) => passRegexAuthors(v),
           },
+          //Use toString() to bypass
+          setValueAs: (v: string) => v.toString().split(', '),
         })}
         type='text'
         name='authors'
         placeholder='Jean-Paul Sartre, Jean Baudrillard, M. Foucault'
+        // onChange={(e) => console.log(e.target.value)}
       />
       {errors.authors && errors.authors.type === 'required' && (
         <span>This field requires at least one author</span>

@@ -7,12 +7,12 @@ function InputISBN() {
   } = useFormContext();
   return (
     <div>
-      <label htmlFor='ISBN'>New book name:</label>
+      <label htmlFor='ISBN'>Set ISBN(optional):</label>
       <input
         {...register('ISBN')}
         type='text'
         name='ISBN'
-        placeholder='Set ISBN(optional)'
+        placeholder='978-5-459-01044-2'
       />
     </div>
   );

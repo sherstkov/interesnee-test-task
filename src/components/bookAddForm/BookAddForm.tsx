@@ -33,21 +33,9 @@ function BookAddForm() {
   }, [isSubmitSuccessful, reset]);
 
   //handle submit
-  // const onSubmit: SubmitHandler<Book> = () => sendData();
-  const onSubmit: SubmitHandler<Book> = (data) => console.log(data);
-  //send new car to firestore
-  // const sendData = () => {
-  //   const newBook: Book = {
-  //     id: uuidv4(),
-  //     name: bookName,
-  //     authors,
-  //     publicationYear,
-  //     rating,
-  //     ISBN: isbn,
-  //   };
+  const onSubmit: SubmitHandler<Book> = (data) =>
+    createBook({ ...data, id: uuidv4() });
 
-  //   // createBook(newBook);
-  // };
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
