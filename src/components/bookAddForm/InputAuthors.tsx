@@ -15,7 +15,7 @@ function InputAuthors() {
           validate: {
             passRegex: (v: Array<string>) => passRegexAuthors(v),
           },
-          //Use toString() to bypass
+          //Use toString() to make sure it's string
           setValueAs: (v: string) => v.toString().split(', '),
         })}
         type='text'

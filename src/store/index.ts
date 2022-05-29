@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
 import { apiSlice } from '../slices/apiSlice';
-// import filters from 'slices/filtersSlice';
+import filters from '../slices/filterSlice';
 
 const store = configureStore({
-  // reducer: { filters, [apiSlice.reducerPath]: apiSlice.reducer },
-  reducer: { [apiSlice.reducerPath]: apiSlice.reducer },
+  reducer: { filters, [apiSlice.reducerPath]: apiSlice.reducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: process.env.NODE_ENV !== 'production',

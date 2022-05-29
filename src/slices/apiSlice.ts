@@ -7,9 +7,9 @@ import {
   setDoc,
   deleteDoc,
   doc,
+  orderBy,
 } from '@firebase/firestore';
 import { Book, Books } from '../customTypes/Books';
-import { StringLike } from '@firebase/util';
 
 // Define a service using a base URL and expected endpoints
 export const apiSlice = createApi({
@@ -21,7 +21,7 @@ export const apiSlice = createApi({
       queryFn: async () => {
         try {
           const ref = collectionGroup(firestore, 'books');
-          const postsQuery = query(ref);
+          const postsQuery = query(ref, orderBy('name'));
           const books = (await getDocs(postsQuery)).docs.map((doc) =>
             doc.data()
           );
