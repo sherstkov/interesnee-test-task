@@ -17,7 +17,6 @@ function BooksList() {
   } else if (isError) {
     return <h1>Loading error</h1>;
   }
-
   //function that renders books list depends on filter
   const renderBooksList = (booksList: Books) => {
     if (booksList.length === 0) {
@@ -31,18 +30,6 @@ function BooksList() {
       default:
         return PublicationYearView(booksList);
     }
-    // return booksList.map((book: Book) =>
-    //   (function () {
-    //     switch (activeFilter) {
-    //       case 'byRating':
-    //         return <h1>byRating</h1>;
-    //       case 'byAuthor':
-    //         return <h1>by authors</h1>;
-    //       default:
-    //         return <h1>ordery by year</h1>;
-    //     }
-    //   })()
-    // );
   };
   const elements = renderBooksList(books as Books);
 

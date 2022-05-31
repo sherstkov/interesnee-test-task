@@ -1,9 +1,10 @@
-import { BooksList, BookAddForm } from '../index';
+import { BooksList, BookAddForm, RecommendedBook } from '../index';
 
 function App() {
   return (
     <>
       <BookAddForm />
+      <RecommendedBook />
       <BooksList />
     </>
   );

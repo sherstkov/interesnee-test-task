@@ -6,7 +6,6 @@ function PublicationYearView(books: Books) {
     books,
     ({ publicationYear }) => publicationYear
   ).reverse();
-  // console.log(orderedBooksList);
 
   const elements = orderedBooksList.map((item) => (
     <div key={item[0]} style={{ backgroundColor: 'gray' }}>

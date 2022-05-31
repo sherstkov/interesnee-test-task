@@ -8,6 +8,7 @@ import {
   deleteDoc,
   doc,
   orderBy,
+  where,
 } from '@firebase/firestore';
 import { Book, Books } from '../customTypes/Books';
 
@@ -26,6 +27,27 @@ export const apiSlice = createApi({
             doc.data()
           );
           return { data: books };
+        } catch (error) {
+          return { error };
+        }
+      },
+      providesTags: ['Books'],
+    }),
+    getRecommendedBooks: builder.query<Books | object, number>({
+      queryFn: async (yearLimit: number) => {
+        try {
+          const ref = collectionGroup(firestore, 'books');
+          const postsQuery = query(
+            ref,
+            where('publicationYear', '!=', NaN), //can't compare with NaN so skip them
+            where('publicationYear', '<=', yearLimit)
+          );
+          // console.log(postsQuery);
+
+          const recommendedBooks = (await getDocs(postsQuery)).docs.map((doc) =>
+            doc.data()
+          );
+          return { data: recommendedBooks };
         } catch (error) {
           return { error };
         }
@@ -63,4 +85,5 @@ export const {
   useGetBooksQuery,
   useCreateBookMutation,
   useDeleteBookMutation,
+  useGetRecommendedBooksQuery,
 } = apiSlice;
