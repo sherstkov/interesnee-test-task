@@ -1,12 +1,11 @@
 import OrderFilters from './OrderFilters';
 import { useGetBooksQuery, useDeleteBookMutation } from '../../slices/apiSlice';
 import { useAppSelector } from '../../store/index';
-import { Loader } from '../index';
 import { Books } from '../../customTypes/Books';
-// import { skip } from '@reduxjs/toolkit/query';
 import PublicationYearView from './PublicationYearView';
 import RatingView from './RatingView';
 import AuthorsView from './AuthorsView';
+import { Card, Text, Title, Loader } from '@mantine/core';
 
 function BooksList() {
   const { data: books = [], isLoading, isError } = useGetBooksQuery();
@@ -14,9 +13,9 @@ function BooksList() {
   const activeFilter = useAppSelector((state) => state.filters.activeFilter);
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader size='xl' variant='dots' />;
   } else if (isError) {
-    return <h1>Loading error</h1>;
+    return <Title>Loading error</Title>;
   }
   //function that renders books list depends on filter
   const renderBooksList = (booksList: Books) => {
@@ -35,11 +34,11 @@ function BooksList() {
   const elements = renderBooksList(books as Books);
 
   return (
-    <>
-      <h1>Books List</h1>
+    <div>
+      <Title mb='xs'>Books list</Title>
       <OrderFilters />
       {elements}
-    </>
+    </div>
   );
 }
 

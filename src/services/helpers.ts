@@ -16,7 +16,7 @@ export const groupBy = <T, K>(
   getKey: (item: T) => K
 ): [string, any][] => {
   const groupedList = list.reduce((previous, currentItem) => {
-    let group = Number.isNaN(getKey(currentItem)) ? 0 : getKey(currentItem);
+    let group = getKey(currentItem);
     if (!previous[group]) previous[group] = [];
     previous[group].push(currentItem);
     return previous;

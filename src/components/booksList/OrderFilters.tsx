@@ -1,25 +1,21 @@
 import { useAppDispatch } from '../../store/index';
 import { filtersChanged } from '../../slices/filterSlice';
+import { Select } from '@mantine/core';
 
 function OrderFilters() {
   //handle filters change
   const dispatch = useAppDispatch();
 
   return (
-    <select
-      name='order'
-      onChange={(e) => dispatch(filtersChanged(e.target.value))}
-    >
-      <option key='byYear' value='byYear'>
-        Order by Publication Year
-      </option>
-      <option key='byRating' value='byRating'>
-        Order by Rating
-      </option>
-      <option key='byAuthor' value='byAuthor'>
-        Order by Author
-      </option>
-    </select>
+    <Select
+      defaultValue='byYear'
+      data={[
+        { value: 'byYear', label: 'By Publication Year' },
+        { value: 'byRating', label: 'By Rating' },
+        { value: 'byAuthor', label: 'By Author' },
+      ]}
+      onChange={(value) => dispatch(filtersChanged(value))}
+    ></Select>
   );
 }
 

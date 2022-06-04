@@ -1,7 +1,8 @@
 import { useGetRecommendedBooksQuery } from '../../slices/apiSlice';
-import { Loader } from '../index';
 import { groupBy } from '../../services/helpers';
 import { Books, Book } from 'customTypes/Books';
+import { Loader } from '@mantine/core';
+import { Card, Text, Title } from '@mantine/core';
 
 function RecommendedBook() {
   const {
@@ -24,29 +25,29 @@ function RecommendedBook() {
     //return rendered book
     const { id, name, rating, authors, ISBN, publicationYear } = bookToRender;
     return (
-      <div key={id}>
-        <h3>{name}</h3>
+      <Card key={id} mb='lg'>
+        <Title order={4}>{name}</Title>
         {authors.length > 1 ? (
-          <h3>Authors: {authors.join(', ')}</h3>
+          <Text>Authors: {authors.join(', ')}</Text>
         ) : (
-          <h3>Author: {authors[0]}</h3>
+          <Text>Author: {authors[0]}</Text>
         )}
-        <h3>Publication Year: {publicationYear}</h3>
-        {rating ? <h3>Rating: {rating}</h3> : null}
-        {ISBN ? <h3>ISBN: {ISBN}</h3> : null}
-      </div>
+        <Text>Publication Year: {publicationYear}</Text>
+        {rating ? <Text>Rating: {rating}</Text> : null}
+        {ISBN ? <Text>ISBN: {ISBN}</Text> : null}
+      </Card>
     );
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader color='dark' size='xl' variant='dots' />;
   } else if (isError) {
     return <h1>Loading error</h1>;
   }
   const elements = getGoodRecommendedBook(books as Books);
   return (
     <>
-      <h1>Recommended Book:</h1>
+      <Title mb='xs'>Recommended book</Title>
       {elements}
     </>
   );

@@ -1,27 +1,34 @@
 import { Books, Book } from 'customTypes/Books';
 import { groupBy } from '../../services/helpers';
+import { Card, Text, Title } from '@mantine/core';
+import styles from '../../styles/BooksList.module.css';
 
 function RatingView(books: Books) {
   const orderedBooksList = groupBy(books, ({ rating }) => rating).reverse();
-  // console.log(orderedBooksList);
 
   const elements = orderedBooksList.map((item) => (
-    <div key={item[0]} style={{ backgroundColor: 'gray' }}>
+    <div key={item[0]}>
       <h2>{+item[0] || 'Not specified'}</h2>
-      {item[1].map(({ id, name, authors, ISBN, publicationYear }: Book) => (
-        <div key={id}>
-          <h3>{name}</h3>
-          {authors.length > 1 ? (
-            <h4>Authors: {authors.join(', ')}</h4>
-          ) : (
-            <h4>Author: {authors[0]}</h4>
-          )}
-          {publicationYear ? (
-            <h4>Publication Year: {publicationYear}</h4>
-          ) : null}
-          {ISBN ? <h3>ISBN: {ISBN}</h3> : null}
-        </div>
-      ))}
+      <div className={styles.group}>
+        {item[1].map(({ id, name, authors, ISBN, publicationYear }: Book) => (
+          <Card
+            key={id}
+            sx={(theme) => ({ backgroundColor: theme.colors.dark[5] })}
+            mb='md'
+          >
+            <Title order={4}>{name}</Title>
+            {authors.length > 1 ? (
+              <Text>Authors: {authors.join(', ')}</Text>
+            ) : (
+              <Text>Author: {authors[0]}</Text>
+            )}
+            {publicationYear ? (
+              <Text>Publication Year: {publicationYear}</Text>
+            ) : null}
+            {ISBN ? <Text>ISBN: {ISBN}</Text> : null}
+          </Card>
+        ))}
+      </div>
     </div>
   ));
 

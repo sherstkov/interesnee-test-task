@@ -1,27 +1,34 @@
 import { Books, Book } from 'customTypes/Books';
 import { groupByNested } from '../../services/helpers';
+import { Card, Text, Title } from '@mantine/core';
+import styles from '../../styles/BooksList.module.css';
 
 function AuthorsView(books: Books) {
   const orderedBooksList = groupByNested(books, ({ authors }) => authors);
 
   const elements = orderedBooksList.map((item) => (
-    <div key={item[0]} style={{ backgroundColor: 'gray' }}>
+    <div key={item[0]}>
       <h2>{item[0]}</h2>
+      <div className={styles.group}></div>
       {item[1].map(
         ({ id, name, authors, ISBN, publicationYear, rating }: Book) => (
-          <div key={id}>
-            <h3>{name}</h3>
+          <Card
+            key={id}
+            sx={(theme) => ({ backgroundColor: theme.colors.dark[5] })}
+            mb='md'
+          >
+            <Title order={4}>{name}</Title>
             {authors.length > 1 ? (
-              <h4>Authors: {authors.join(', ')}</h4>
+              <Text>Authors: {authors.join(', ')}</Text>
             ) : (
-              <h4>Author: {authors[0]}</h4>
+              <Text>Author: {authors[0]}</Text>
             )}
             {publicationYear ? (
-              <h4>Publication Year: {publicationYear}</h4>
+              <Text>Publication Year: {publicationYear}</Text>
             ) : null}
-            {rating ? <h3>Rating: {rating}</h3> : null}
-            {ISBN ? <h3>ISBN: {ISBN}</h3> : null}
-          </div>
+            {rating ? <Text>Rating: {rating}</Text> : null}
+            {ISBN ? <Text>ISBN: {ISBN}</Text> : null}
+          </Card>
         )
       )}
     </div>
