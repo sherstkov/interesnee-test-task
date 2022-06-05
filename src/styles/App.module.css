@@ -4,3 +4,11 @@
   grid-template-columns: 2fr 1fr;
   column-gap: 3rem;
 }
+
+@media (max-width: 1200px) {
+  .main {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 1rem 3%;
+  }
+}

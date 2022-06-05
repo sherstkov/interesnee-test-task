@@ -11,11 +11,3 @@
   row-gap: 0.3rem;
   margin-left: auto;
 }
-
-@media (max-width: 1200px) {
-  .main {
-    display: flex;
-    flex-direction: column-reverse;
-    padding: 1rem 3%;
-  }
-}
