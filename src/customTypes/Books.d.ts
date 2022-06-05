@@ -11,7 +11,6 @@ export type Books = Book[];
 
 export type BookFormProps = {
   initialValues: Book;
-  isEdit: boolean;
   onClose: function;
 };
 

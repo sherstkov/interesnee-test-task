@@ -42,8 +42,12 @@ function Icons(props: { currentBook: any }) {
             ...currentBook,
             //stringify rating otherwise initial value can't take new value from db
             rating: currentBook.rating.toString(),
+            //zero check to fill empty year input
+            publicationYear:
+              currentBook.publicationYear === 0
+                ? undefined
+                : currentBook.publicationYear,
           }}
-          isEdit={true}
           onClose={() => setOpened((o) => !o)}
         />
       </Popover>

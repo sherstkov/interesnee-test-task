@@ -1,8 +1,7 @@
 import { useGetRecommendedBooksQuery } from '../../slices/apiSlice';
 import { groupBy } from '../../services/helpers';
 import { Books, Book } from 'customTypes/Books';
-import { Loader } from '@mantine/core';
-import { Card, Text, Title } from '@mantine/core';
+import { Loader, Title } from '@mantine/core';
 import { SingleBook } from '../index';
 
 function RecommendedBook() {

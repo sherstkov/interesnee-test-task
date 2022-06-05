@@ -1,6 +1,5 @@
 import { Books, Book } from 'customTypes/Books';
 import { groupBy, groupByNested } from '../../services/helpers';
-import { Card, Text, Title } from '@mantine/core';
 import { SingleBook } from '../index';
 import Icons from './Icons';
 import styles from '../../styles/BooksList.module.css';

@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createEntityAdapter,
-} from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 const filtersAdapter = createEntityAdapter();
