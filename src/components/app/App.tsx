@@ -1,4 +1,4 @@
-import { BooksList, BookAddForm, RecommendedBook } from '../index';
+import { BooksList, BookForm, RecommendedBook } from '../index';
 import styles from '../../styles/App.module.css';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
       <BooksList />
       <div>
         <RecommendedBook />
-        <BookAddForm />
+        <BookForm />
       </div>
     </div>
   );

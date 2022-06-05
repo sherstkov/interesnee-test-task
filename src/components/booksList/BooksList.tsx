@@ -1,10 +1,8 @@
 import OrderFilters from './OrderFilters';
-import { useGetBooksQuery, useDeleteBookMutation } from '../../slices/apiSlice';
+import { useGetBooksQuery } from '../../slices/apiSlice';
 import { useAppSelector } from '../../store/index';
 import { Books } from '../../customTypes/Books';
-import PublicationYearView from './PublicationYearView';
-import RatingView from './RatingView';
-import AuthorsView from './AuthorsView';
+import GroupedBooksView from './GroupedBooksView';
 import { Card, Text, Title, Loader } from '@mantine/core';
 
 function BooksList() {
@@ -22,14 +20,7 @@ function BooksList() {
     if (booksList.length === 0) {
       return <h2>Books has not yet been added</h2>;
     }
-    switch (activeFilter) {
-      case 'byRating':
-        return RatingView(booksList);
-      case 'byAuthor':
-        return AuthorsView(booksList);
-      default:
-        return PublicationYearView(booksList);
-    }
+    return GroupedBooksView(booksList, activeFilter);
   };
   const elements = renderBooksList(books as Books);
 

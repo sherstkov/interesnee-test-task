@@ -9,6 +9,7 @@ import {
   doc,
   orderBy,
   where,
+  updateDoc,
 } from '@firebase/firestore';
 import { Book, Books } from '../customTypes/Books';
 
@@ -66,6 +67,18 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ['Books'],
     }),
+    editBook: builder.mutation<object | string, Book>({
+      queryFn: async (bookData: Book) => {
+        try {
+          const ref = doc(firestore, 'books', bookData.id);
+          await updateDoc(ref, bookData);
+          return { data: 'Book has been edited' };
+        } catch (error) {
+          return { error };
+        }
+      },
+      invalidatesTags: ['Books'],
+    }),
     deleteBook: builder.mutation<object | string, string>({
       queryFn: async (id: string) => {
         try {
@@ -84,6 +97,7 @@ export const apiSlice = createApi({
 export const {
   useGetBooksQuery,
   useCreateBookMutation,
+  useEditBookMutation,
   useDeleteBookMutation,
   useGetRecommendedBooksQuery,
 } = apiSlice;

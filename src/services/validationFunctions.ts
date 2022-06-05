@@ -9,7 +9,7 @@ export const validateName = (value: string) =>
 export const validateAuthors = (value: string) =>
   passRegexAuthors(value.trim())
     ? null
-    : 'More than one author should be separated with comma and space without symbol at the end. Example: Albert Camus, Franz Kafka';
+    : 'Invalid authors. Example: Albert Camus, Franz Kafka';
 
 export const validetePublicationYear = (value: undefined | number) => {
   //pass empty/deleted input

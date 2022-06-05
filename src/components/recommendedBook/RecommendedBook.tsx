@@ -3,6 +3,7 @@ import { groupBy } from '../../services/helpers';
 import { Books, Book } from 'customTypes/Books';
 import { Loader } from '@mantine/core';
 import { Card, Text, Title } from '@mantine/core';
+import { SingleBook } from '../index';
 
 function RecommendedBook() {
   const {
@@ -15,28 +16,14 @@ function RecommendedBook() {
     if (booksList.length === 0) return <h2>No good book</h2>;
 
     //group books by rating and grab array with highest one
-    const highestRatingBooks = groupBy(
-      booksList,
-      ({ rating }) => rating
-    ).reverse()[0][1];
+    const highestRatingBooks = groupBy(booksList, ({ rating }) => rating)[0][1];
+
     //get random book
     const bookToRender: Book =
       highestRatingBooks[Math.floor(Math.random() * highestRatingBooks.length)];
     //return rendered book
     const { id, name, rating, authors, ISBN, publicationYear } = bookToRender;
-    return (
-      <Card key={id} mb='lg'>
-        <Title order={4}>{name}</Title>
-        {authors.length > 1 ? (
-          <Text>Authors: {authors.join(', ')}</Text>
-        ) : (
-          <Text>Author: {authors[0]}</Text>
-        )}
-        <Text>Publication Year: {publicationYear}</Text>
-        {rating ? <Text>Rating: {rating}</Text> : null}
-        {ISBN ? <Text>ISBN: {ISBN}</Text> : null}
-      </Card>
-    );
+    return <SingleBook currentBook={bookToRender} />;
   };
 
   if (isLoading) {

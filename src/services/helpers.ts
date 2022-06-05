@@ -21,16 +21,23 @@ export const groupBy = <T, K>(
     previous[group].push(currentItem);
     return previous;
   }, {} as any);
+
   //return sorted array with entries to make sure book inside are ordered
-  return Object.entries(groupedList).sort();
+  return Object.entries(groupedList)
+    .sort(function (a, b) {
+      if (+a[0] < +b[0]) return -1;
+      if (+a[0] > +b[0]) return 1;
+      return 0;
+    })
+    .reverse();
 };
 
-export const groupByNested = <T, K extends Array<string>>(
+export const groupByNested = <T, K extends string>(
   list: T[],
   getKey: (item: T) => K
 ): [string, any][] => {
   const groupedList = list.reduce((previous, currentItem) => {
-    const group = getKey(currentItem);
+    const group = getKey(currentItem).split(', ');
     group.forEach((element) => {
       if (!previous[element]) previous[element] = [];
       previous[element].push(currentItem);
@@ -38,6 +45,7 @@ export const groupByNested = <T, K extends Array<string>>(
 
     return previous;
   }, {} as any);
+
   //return sorted array with entries to make sure book inside are ordered
   return Object.entries(groupedList).sort();
 };

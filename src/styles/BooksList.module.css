@@ -6,11 +6,10 @@
 }
 
 .icons {
-  width: 100%;
   flex-direction: column;
   display: flex;
-  align-items: flex-end;
   row-gap: 0.3rem;
+  margin-left: auto;
 }
 
 @media (max-width: 1200px) {

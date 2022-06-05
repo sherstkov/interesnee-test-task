@@ -1,6 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@mantine/core';
-import { useCreateBookMutation } from './../../slices/apiSlice';
+import {
+  useCreateBookMutation,
+  useEditBookMutation,
+} from '../../slices/apiSlice';
 import { Card, TextInput, NumberInput, Select, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
@@ -10,21 +13,30 @@ import {
   validateAuthors,
   validetePublicationYear,
 } from '../../services/validationFunctions';
+import { BookFormProps, Book } from '../../customTypes/Books';
 
-function BookAddForm() {
-  const [createBook] = useCreateBookMutation();
+const defaultInitialValues: Book = {
+  id: uuidv4(),
+  name: '',
+  authors: '',
+  rating: '0',
+  publicationYear: undefined,
+  ISBN: '',
+};
+
+function BookForm({
+  initialValues = defaultInitialValues,
+  isEdit = false,
+  onClose,
+}: BookFormProps) {
+  const [bookMutation] = isEdit
+    ? useEditBookMutation()
+    : useCreateBookMutation();
   const form = useForm({
-    initialValues: {
-      name: '',
-      authors: '',
-      rating: '0',
-      publicationYear: undefined, //that's the only way to reset inputNumber field
-      ISBN: '',
-    },
+    initialValues,
     validate: {
       name: (value: string) => validateName(value),
       authors: (value: string) => validateAuthors(value),
-
       publicationYear: (value: undefined | number) =>
         validetePublicationYear(value),
     },
@@ -32,15 +44,16 @@ function BookAddForm() {
 
   //handle submit
   const handleSubmit = (values: typeof form.values) => {
-    createBook({
-      id: uuidv4(),
+    bookMutation({
+      id: initialValues.id,
       name: values.name.trim(),
-      authors: values.authors.trim().split(', '),
+      authors: values.authors.trim(),
       publicationYear: values.publicationYear ? +values.publicationYear : 0,
       rating: +values.rating,
-      ISBN: values.ISBN,
+      ISBN: values.ISBN.trim(),
     });
-    form.reset();
+    //reset main form when creating new book, close popover when editing
+    isEdit ? onClose() : form.reset();
   };
 
   //getting select options
@@ -50,8 +63,8 @@ function BookAddForm() {
 
   return (
     <>
-      <Title mb='xs'>Add a new book</Title>
-      <Card shadow='sm' p='lg' mb='lg'>
+      {!isEdit && <Title mb='xs'>Add a new book</Title>}
+      <Card p='lg' mb='lg'>
         <form
           className={styles.container}
           onSubmit={form.onSubmit(handleSubmit)}
@@ -99,4 +112,4 @@ function BookAddForm() {
   );
 }
 
-export default BookAddForm;
+export default BookForm;

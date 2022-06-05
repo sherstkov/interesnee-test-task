@@ -1,10 +1,22 @@
 export type Book = {
   id: string;
   name: string;
-  authors: Array<string>;
-  publicationYear: number;
-  rating: number;
+  authors: string;
+  publicationYear: number | undefined;
+  rating: number | string;
   ISBN: string;
 };
 
 export type Books = Book[];
+
+export type BookFormProps = {
+  initialValues: Book;
+  isEdit: boolean;
+  onClose: function;
+};
+
+export type SingleBookType = {
+  currentBook: Book;
+  filter?: string;
+  icons?: React.ReactNode;
+};
