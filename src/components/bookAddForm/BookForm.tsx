@@ -6,8 +6,7 @@ import {
   validateName,
   validateAuthors,
   validetePublicationYear,
-  validateISBN10,
-  validateISBN13,
+  validateISBN,
 } from '../../services/validationFunctions';
 import { BookFormProps } from '../../customTypes/Books';
 
@@ -20,10 +19,7 @@ function BookForm({ initialValues, onClose }: BookFormProps) {
       authors: (value: string) => validateAuthors(value),
       publicationYear: (value: undefined | number) =>
         validetePublicationYear(value),
-      ISBN: (value: string) => {
-        if (value.trim() === '') return null;
-        return validateISBN10(value) && validateISBN13(value);
-      },
+      ISBN: (value: string) => validateISBN(value),
     },
   });
 
@@ -79,7 +75,7 @@ function BookForm({ initialValues, onClose }: BookFormProps) {
         />
         <TextInput
           label='Edit ISBN'
-          placeholder='9785459010442'
+          placeholder='978-5-9614-2021-0'
           {...form.getInputProps('ISBN')}
         />
 

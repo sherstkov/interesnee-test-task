@@ -1,4 +1,4 @@
-import { passRegexAuthors } from './helpers';
+import { passRegexAuthors, passRegexISBN } from './helpers';
 
 export const validateName = (value: string) =>
   //check value.length > 0 just in case html-attribute "required" can be deleted
@@ -22,24 +22,33 @@ export const validetePublicationYear = (value: undefined | number) => {
     : 'Please enter a valid year between 1800 and now';
 };
 
-export const validateISBN10 = (value: string) => {
-  const trimmedValue = value.trim().split('').reverse();
-  if (trimmedValue.length !== 10) return 'ISBN is invalid';
-  const accumulatedISBN = trimmedValue.reduce(
+const validateISBN10 = (value: Array<string>) => {
+  const reversedValue = value.reverse();
+  if (reversedValue.length !== 10) return 'ISBN is invalid';
+  const accumulatedISBN = reversedValue.reduce(
     (accumulator, value, index) => accumulator + +value * (index + 1),
     0
   );
   return accumulatedISBN % 11 === 0 ? null : 'ISBN is invalid';
 };
 
-export const validateISBN13 = (value: string) => {
-  const trimmedValue = value.trim().split('');
-  if (trimmedValue.length !== 13) return 'ISBN is invalid';
-  const accumulatedISBN = trimmedValue.reduce(
+const validateISBN13 = (value: Array<string>) => {
+  if (value.length !== 13) return 'ISBN is invalid';
+  const accumulatedISBN = value.reduce(
     (accumulator, value, index) =>
       accumulator + +value * (index % 2 === 0 ? 1 : 3),
     0
   );
-  console.log(accumulatedISBN);
   return accumulatedISBN % 10 === 0 ? null : 'ISBN is invalid';
+};
+
+export const validateISBN = (value: string) => {
+  const trimmedValue = value.trim();
+  if (trimmedValue === '') return null;
+  if (passRegexISBN(trimmedValue)) {
+    //replace all spaces and dashes, split numbers to array
+    const arrayValue = trimmedValue.replaceAll(/[- ]/g, '').split('');
+    return validateISBN10(arrayValue) && validateISBN13(arrayValue);
+  }
+  return 'ISBN is invalid';
 };

@@ -10,6 +10,12 @@ export const passRegexAuthors = (stringToCheck: string) =>
     /^(?:(?:[a-zA-Z\u0401\u0451\u0410-\u044f]+(?:\.\s[a-zA-Z\u0401\u0451\u0410-\u044f]+|\-|\s[a-zA-Z\u0401\u0451\u0410-\u044f]+)*)(?:(?:,\s)?|$))+/g,
     stringToCheck
   );
+//special functions to check isbn
+export const passRegexISBN = (stringToCheck: string) =>
+  passRegex(
+    /^(?=[0-9]{10}$|(?=(?:[0-9]+[-●]){3})[-●0-9]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$)(?:97[89][-●]?)?[0-9]{1,5}[-●]?[0-9]+[-●]?[0-9]+[-●]?[0-9]$/g,
+    stringToCheck
+  );
 
 export const groupBy = <T, K>(
   list: T[],

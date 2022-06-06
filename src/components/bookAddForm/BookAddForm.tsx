@@ -7,8 +7,7 @@ import {
   validateName,
   validateAuthors,
   validetePublicationYear,
-  validateISBN10,
-  validateISBN13,
+  validateISBN,
 } from '../../services/validationFunctions';
 
 function BookAddForm() {
@@ -26,10 +25,7 @@ function BookAddForm() {
       authors: (value: string) => validateAuthors(value),
       publicationYear: (value: undefined | number) =>
         validetePublicationYear(value),
-      ISBN: (value: string) => {
-        if (value.trim() === '') return null;
-        return validateISBN10(value) && validateISBN13(value);
-      },
+      ISBN: (value: string) => validateISBN(value),
     },
   });
 
@@ -87,7 +83,7 @@ function BookAddForm() {
           />
           <TextInput
             label='Set ISBN'
-            placeholder='9785459010442'
+            placeholder='978-5-9614-2021-0'
             {...form.getInputProps('ISBN')}
           />
 
